@@ -1,17 +1,18 @@
 version: 2
 
 sources:
-- name: raw
-  schema: dbt_dataset
-  tables:
-    - name: sales
-      identifier: raw_gz_sales
-    - name: product
-      identifier: raw_gz_product
-    - name: ship
-      identifier: raw_gz_ship
-
-  
-
-
-          
+  - name: raw
+    schema: dbt_dataset
+    tables:
+      - name: product
+        description: greenweez raw data
+        identifier: raw_gz_product
+      - name: sales
+        description: information regarding our sales
+        identifier: raw_gz_sales
+        tests:
+          - unique:
+              column_name: "(orders_id || '-' || pdt_id)"
+      - name: ship
+        description: information regarding our shipping costs
+        identifier: raw_gz_ship
